@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[33]:
+# In[ ]:
 
 import requests
 from bs4 import BeautifulSoup
@@ -29,12 +29,12 @@ def newUrl2scrape(final_list):
     
     for newLinktoscrape in final_list:
         if newLinktoscrape not in pages:
-            #print(newLinktoscrape)
             return newLinktoscrape
         continue
     
 
 def spider(max_pages):
+    
     count = 1
     url = 'http://biosql.org/wiki/Main_Page'
     while count <= max_pages:
@@ -62,21 +62,13 @@ def spider(max_pages):
         pages.add(url)
         
         count += 1
-                
-        print(internalLinks)
-        print(externalLinks)
+
         
         final_list = findall_internal_links(url, internalLinks)
         print(url, '\n\n---------')
         print(pd.DataFrame({'Link':internalLinks, 'Title':internalLinkstitle}))
         print(pd.DataFrame({'Link':externalLinks, 'Title':externalLinkstitle}))
-        url = newUrl2scrape(final_list)
-        
-#         global IL, EL
-#         IL = pd.DataFrame({'Link':internalLinks, 'Title':internalLinkstitle})
-#         EL = pd.DataFrame({'Link':externalLinks, 'Title':externalLinkstitle})
-
-        
+        url = newUrl2scrape(final_list)       
 
 pages = set()
 spider(6)
